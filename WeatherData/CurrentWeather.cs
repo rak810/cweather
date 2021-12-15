@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace cweather.WeatherData
 {
@@ -7,11 +9,14 @@ namespace cweather.WeatherData
         public DateTime Date;
         public DateTime SunRise;
         public DateTime Sunset;
-        public float Temp;
-        public  float FeelsLike;
         public WeatherFactors WFactors;
-        public WindData Wind;
-        public WeatherDescription[] weather;
+        public CurrentWeather(JToken currTok)
+        {
+            Date = (DateTime)currTok["dt"];
+            SunRise = (DateTime)currTok["sunrise"];
+            Sunset = (DateTime)currTok["sunset"];
+            WFactors = new WeatherFactors(currTok);
+        }
     }
   
 }

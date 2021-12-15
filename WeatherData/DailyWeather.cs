@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json.Linq;
 
 namespace cweather.WeatherData
 {
@@ -14,5 +15,9 @@ namespace cweather.WeatherData
         public FeelsLikeData FeelsLike;
         public WeatherDescription WDesc;
         public float Precipitation;
+        public DailyWeather(JToken dailyTok)
+        {
+            
+        }
     }
 }
