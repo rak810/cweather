@@ -10,12 +10,19 @@ namespace cweather.WeatherData
         public DateTime SunRise;
         public DateTime Sunset;
         public WeatherFactors WFactors;
+        public float Temp;
+        public  float FeelsLike;
+        public List<WeatherDescription> WDesc;
         public CurrentWeather(JToken currTok)
         {
-            Date = (DateTime)currTok["dt"];
-            SunRise = (DateTime)currTok["sunrise"];
-            Sunset = (DateTime)currTok["sunset"];
+            WDesc =  new List<WeatherDescription>();
+            Date = new DateTime((long)currTok["dt"]);
+            SunRise = new DateTime((long)currTok["sunrise"]);
+            Sunset = new DateTime((long)currTok["sunset"]);
+            WDesc.Add(new WeatherDescription(currTok["weather"].First));
             WFactors = new WeatherFactors(currTok);
+            Temp =  (float)currTok["temp"];
+            FeelsLike = (float)currTok["feels_like"];
         }
     }
   

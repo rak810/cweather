@@ -8,7 +8,11 @@ namespace cweather.WeatherData
         public CurrentWeather Current;
         public List<DailyWeather> Daily;
         public List<HourlyWeather> Hourly;
-        public Weather(string timeZone, CurrentWeather currentWeather, List<DailyWeather> dailyWeathers, List<HourlyWeather> hourlyWeathers)
+        public Weather(
+            string timeZone,
+            CurrentWeather currentWeather,
+            List<DailyWeather> dailyWeathers,
+            List<HourlyWeather> hourlyWeathers)
         {
             TimeZone = timeZone;
             Current = currentWeather;
