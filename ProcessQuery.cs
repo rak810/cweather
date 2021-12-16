@@ -14,6 +14,7 @@ namespace cweather
         private Weather _weather;
         public Weather Weather => _weather;
         private Location _location;
+        public Location Location => _location;
         private readonly SimpleMapBoxApiClient _mpApi;
         private readonly OpenWeatherApiClient _opApi;
         private readonly string _queryLoc;
