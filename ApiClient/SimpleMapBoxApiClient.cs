@@ -24,7 +24,7 @@ namespace cweather.ApiClient
            _mbApiToken = Env.GetString("MBapiToken");  
         }
 
-        private Uri GenerateReqUrl(string loc) => new Uri($"https://api.mapbox.com/geocoding/v5/mapbox.places/{WebUtility.UrlEncode(loc)}.json?access_token={_mbApiToken}");
+        private Uri GenerateReqUrl(string loc) => new($"https://api.mapbox.com/geocoding/v5/mapbox.places/{WebUtility.UrlEncode(loc)}.json?access_token={_mbApiToken}");
 
         public async Task<JToken> GetLatLongAsync(string loc)
         {

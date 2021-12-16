@@ -24,7 +24,7 @@ namespace cweather.ApiClient
            _owmApiToken = Env.GetString("OWMapiToken");     
        }
 
-        private Uri GenerateReqUrl(float Lat, float Long) => new Uri($"https://api.openweathermap.org/data/2.5/onecall?lat={Lat}&lon={Long}&units=metric&exclude=minutely&appid={_owmApiToken}");
+        private Uri GenerateReqUrl(float Lat, float Long) => new($"https://api.openweathermap.org/data/2.5/onecall?lat={Lat}&lon={Long}&units=metric&exclude=minutely&appid={_owmApiToken}");
 
         public async Task<JObject> GetWeatherAsync(Location loc)
         {
