@@ -15,7 +15,7 @@ namespace cweather.WeatherData
         public HourlyWeather(JToken hourTok)
         {
             WDesc =  new List<WeatherDescription>();
-            Date = new DateTime((long)hourTok["dt"]);
+            Date = new DateTime(1970, 1, 1).AddSeconds((double)hourTok["dt"]).ToLocalTime();
             Precipitation = (float)hourTok["pop"];
             wFacts = new WeatherFactors(hourTok);
             Temp =  (float)hourTok["temp"];

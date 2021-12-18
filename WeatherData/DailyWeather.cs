@@ -19,11 +19,11 @@ namespace cweather.WeatherData
         public DailyWeather(JToken dailyTok)
         {
             WDesc =  new List<WeatherDescription>();
-            Date = new DateTime((long)dailyTok["dt"]);
-            SunRise = new DateTime((long)dailyTok["sunrise"]);
-            SunSet = new DateTime((long)dailyTok["sunset"]);
-            MoonRise = new DateTime((long)dailyTok["moonrise"]);
-            MoonSet = new DateTime((long)dailyTok["moonset"]);
+            Date = new DateTime(1970, 1, 1).AddSeconds((double)dailyTok["dt"]).ToLocalTime();
+            SunRise = new DateTime(1970, 1, 1).AddSeconds((double)dailyTok["sunrise"]).ToLocalTime();
+            SunSet = new DateTime(1970, 1, 1).AddSeconds((double)dailyTok["sunset"]).ToLocalTime();
+            MoonRise = new DateTime(1970, 1, 1).AddSeconds((double)dailyTok["moonrise"]).ToLocalTime();
+            MoonSet = new DateTime(1970, 1, 1).AddSeconds((double)dailyTok["moonset"]).ToLocalTime();
             MoonPhase = (float)dailyTok["moon_phase"];
             Temp = new TemperatureData(dailyTok["temp"]);
             FeelsLike = new FeelsLikeData(dailyTok["feels_like"]);
