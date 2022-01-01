@@ -11,7 +11,7 @@ namespace cweather.WeatherData
         public float DewPoint;
         public float Uvi;
         public float Clouds;
-        public float Visibility;
+        public float? Visibility;
 
         public WeatherFactors(JToken facTok)
         {
@@ -19,7 +19,11 @@ namespace cweather.WeatherData
             Humidity = (float)facTok["humidity"];
             DewPoint = (float)facTok["dew_point"];
             Uvi = (float)facTok["uvi"];
-            Visibility = (float)facTok["visibility"];
+
+            if(facTok["visivility"] != null)
+            {
+                Visibility = (float)facTok["visibility"];
+            }
             Wind = new WindData(facTok);
         }
     }

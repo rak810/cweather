@@ -12,6 +12,10 @@ namespace cweather.WeatherData
         public  float FeelsLike;
         public WeatherFactors wFacts;
         public List<WeatherDescription> WDesc;
+#nullable enable
+        public RainData? Rain;
+        public SnowData? Snow;
+#nullable disable
         public HourlyWeather(JToken hourTok)
         {
             WDesc =  new List<WeatherDescription>();
@@ -20,6 +24,16 @@ namespace cweather.WeatherData
             wFacts = new WeatherFactors(hourTok);
             Temp =  (float)hourTok["temp"];
             FeelsLike = (float)hourTok["feels_like"];
+
+            if(hourTok["rain"] != null) 
+            {
+                Rain = new RainData(hourTok["rain"]);
+            }
+
+            if(hourTok["snow"] != null)
+            {
+                Snow = new SnowData(hourTok["snow"]);
+            }
             WDesc.Add(new WeatherDescription(hourTok["weather"].First));
         }
     }
