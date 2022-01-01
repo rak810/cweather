@@ -11,11 +11,7 @@ namespace cweather.WeatherData
         {
             WindSpeed = (float)windTok["wind_speed"];
             WindDeg = (float)windTok["wind_deg"];
-            if(windTok["wind_gust"] == null)
-            {
-                WindGust = null;
-            }
-            else 
+            if(windTok["wind_gust"] != null)
             {
                 WindGust = (float)windTok["wind_gust"];
             }

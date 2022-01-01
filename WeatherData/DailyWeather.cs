@@ -17,8 +17,8 @@ namespace cweather.WeatherData
         public List<WeatherDescription> WDesc;
         public WeatherFactors wFacts;
         public float Precipitation;
-        public float Rain;
-        public float Snow;
+        public float? Rain;
+        public float? Snow;
         public DailyWeather(JToken dailyTok)
         {
             WDesc =  new List<WeatherDescription>();

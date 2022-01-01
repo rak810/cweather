@@ -18,9 +18,9 @@ namespace cweather.WeatherData
             Pressure = (float)facTok["pressure"];
             Humidity = (float)facTok["humidity"];
             DewPoint = (float)facTok["dew_point"];
+            Clouds = (float)facTok["clouds"];
             Uvi = (float)facTok["uvi"];
-
-            if(facTok["visivility"] != null)
+            if(facTok["visibility"] != null)
             {
                 Visibility = (float)facTok["visibility"];
             }
