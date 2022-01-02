@@ -48,7 +48,6 @@ namespace cweather
         {
             CurrentWeatherSummary();
             var table = new Table();
-            table.Border(TableBorder.Rounded);
             table.AddColumn(new TableColumn("Pressure").Centered());
             table.AddColumn(new TableColumn("Humidity").Centered());
             table.AddColumn(new TableColumn("Dew Point").Centered());
@@ -70,7 +69,6 @@ namespace cweather
         public void ForecastHourlyWeather(int count)
         {
             var table = new Table();
-            table.Border(TableBorder.Rounded);
             table.Title($"Forecast for next {count} hours");
             table.AddColumn(new TableColumn("Time").Centered());
             table.AddColumn(new TableColumn("Temp (Feels Like)").Centered());

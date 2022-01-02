@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using Spectre.Console;
 
 namespace cweather
 {
@@ -39,8 +40,14 @@ namespace cweather
 
         public  async Task ProcessWeatherData()
         {
-            await GetLocationAsync();
-            await GetWeatherJsonAsync();
+            await AnsiConsole.Status()
+                             .StartAsync("Fetching Data... ", async ctx => 
+                             {
+                                ctx.Spinner(Spinner.Known.Dots2);
+                                await GetLocationAsync();
+                                await GetWeatherJsonAsync();
+                             });
+            
 
             var currentWeather = new CurrentWeather(_weatherJsonObject.SelectToken("current"));
 
