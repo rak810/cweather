@@ -78,7 +78,7 @@ namespace cweather
             table.AddColumn(new TableColumn("Wind").Centered());
             table.AddColumn(new TableColumn("Description").Centered());
 
-            for(int i = 1; i < count; i++)
+            for(int i = 1; i <= count; i++)
             {
                 var row = RenderHourlyWeather(_weather.Hourly[i]);
                 table.AddRow(row);
