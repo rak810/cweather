@@ -29,8 +29,6 @@ namespace cweather.ApiClient
         public async Task<JObject> GetWeatherAsync(Location loc)
         {
             var reqUri = GenerateReqUrl(loc.Coord.Lat, loc.Coord.Long);
-
-            Console.WriteLine(reqUri);
             JObject weatherObj = null;
 
             try
@@ -39,7 +37,6 @@ namespace cweather.ApiClient
 
                  if(response.IsSuccessStatusCode)
                  {
-                     Console.WriteLine("Successful Request OP");
                      var jsonStr = await response.Content.ReadAsStringAsync();
                      var jsonDict = JObject.Parse(jsonStr);
                      weatherObj = jsonDict;

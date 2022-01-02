@@ -29,7 +29,6 @@ namespace cweather.ApiClient
         public async Task<JToken> GetLatLongAsync(string loc)
         {
             var reqUri = GenerateReqUrl(loc);
-            Console.WriteLine(reqUri);
             JToken locationObj = null;
 
             try
@@ -38,7 +37,6 @@ namespace cweather.ApiClient
 
                  if(response.IsSuccessStatusCode)
                  {
-                     Console.WriteLine("Successful Request");
                      var jsonStr = await response.Content.ReadAsStringAsync();
                      var jsonDict = JObject.Parse(jsonStr);
                      locationObj = jsonDict.SelectToken("features").First;
