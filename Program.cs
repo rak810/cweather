@@ -1,39 +1,35 @@
 ﻿using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections;
 using DotNetEnv;
-using System.Collections.Generic;
-using cweather.ApiClient;
-using cweather.LocationData;
-using Newtonsoft.Json;
-using cweather.WeatherData;
-using System.IO;
-
-// using Spectre.Console;
+using Spectre.Console.Cli;
+using cweather.CommandLine;
 
 namespace cweather
 {
-    
     class Program
     {
         static async Task Main(string[] args)
         {
             Env.Load();
+            var app = new CommandApp();
 
-            var res = new ProcessQuery("dhaka");
-            await res.ProcessWeatherData();
+            app.Configure(config =>
+            {
+                config.AddBranch<ForecastSettings>("fcast", fcast =>
+                {
+                    fcast.AddCommand<DailyCommand>("daily");
+                    fcast.AddCommand<HourlyCommand>("hourly");
+                });
 
-            // var jsonString = JsonConvert.SerializeObject(res.Weather);
-            // await File.WriteAllTextAsync("weather.json", jsonString);
+                config.AddCommand<SetCommand>("set");
+                config.AddCommand<CurrCommand>("curr");
+            }
+            );
+            
+            await app.RunAsync(args);
 
-            var renderData = new RenderWeatherData(res.Weather, res.Location);
-            renderData.CurrentWeatherDetail();
         }
-
-        
-
     }
-
-    
 }
+
+
+
