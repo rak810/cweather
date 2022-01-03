@@ -13,20 +13,34 @@ To show results in the terminal using tables, fancy colors and to parse the comm
 ## How to run
 This project is built using .NET5.  So it is needed to properly run the application.
 
- 1. Clone the project
+ 1. Create an ```.env``` file like the provided example ```.env.example``` to add your own API tokens here. Otherwise program won't run.
+ 2. Clone the project
     ```
     git clone https://github.com/rak810/cweather.git
     ```
- 2. Then cd into the project folder.
+ 3. Then cd into the project folder.
     ```
     cd .\cweather\
     ```
- 3. Run build command 
-   ```
-   dotnet build
-   ``` 
- 4. The project will compile now. And run the exe from bin.
-   ``` 
-    cd .\bin\Debug\net5.0\ 
-    .\cweather.exe --help
-   ```
+ 4. Run build command 
+    ```
+    dotnet build
+    ``` 
+ 5. The project will compile now. And run the exe from bin.
+        
+      ``` 
+      cd .\bin\Debug\net5.0\ 
+      .\cweather.exe --help
+      ```
+
+## Screenshots
+### ```.\cweather.exe --help```
+![help](images/cw-1.PNG)
+### ```.\cweather.exe curr [Location]```
+![current summary](images/cw-2.PNG)
+### ```.\cweather.exe curr [Location] -d```
+![current detail](images/cw-3.PNG)
+### ```.\cweather.exe fcast hourly [Location] -r [range]```
+![hourly forecast](images/cw-4.PNG)
+### ```.\cweather.exe fcast [Location] "louiseville kentucky" -i [idx]```
+![daily forecast](images/cw-5.PNG)
