@@ -30,6 +30,7 @@ This project is built using .NET5.  So it is needed to properly run the applicat
         
       ``` 
       cd .\bin\Debug\net5.0\ 
+      
       .\cweather.exe --help
       ```
 
