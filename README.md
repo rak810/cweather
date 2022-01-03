@@ -44,3 +44,10 @@ This project is built using .NET5.  So it is needed to properly run the applicat
 ![hourly forecast](images/cw-4.PNG)
 ### ```.\cweather.exe fcast [Location] "louiseville kentucky" -i [idx]```
 ![daily forecast](images/cw-5.PNG)
+
+## Conclusion
+The project isnt done yet completely. There are parts that need some more works. Things that are left to do:
+ 
+ 1. Add support for default location. A location that is saved. And if the location isn't specified in the commandline then results will be show for default location.  
+ 2. Add support for adding token through CLI.
+ 3. Add some charts to visualize daily and hourly forecast.
