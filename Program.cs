@@ -11,8 +11,12 @@ namespace cweather
     {
         static async Task Main(string[] args)
         {
+            // Loading environmental variables from .env file
             Env.Load();
+            // Setting text encoding of the terminal to utf8 to render everything properly
             Console.OutputEncoding = Encoding.UTF8;
+            
+            //Commandline parsing
             var app = new CommandApp();
             app.Configure(config =>
             {
@@ -32,27 +36,3 @@ namespace cweather
         }
     }
 }
-
-
-
-// using Spectre.Console;
-
-// Synchronous
-// await AnsiConsole.Status()
-//     .StartAsync("Thinking...", async ctx => 
-//     {
-//         ctx.Spinner(Spinner.Known.Circle);
-//         // Simulate some work
-//         AnsiConsole.MarkupLine("Doing some work...");
-//         await Task.Delay(3000);
-        
-//         // Update the status and spinner
-        
-//         ctx.Status("Thinking some more");
-
-//         // Simulate some work
-//         AnsiConsole.MarkupLine("Doing some more work...");
-//         await Task.Delay(4000);
-//     });
-
-// Console.WriteLine(10);

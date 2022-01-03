@@ -26,20 +26,24 @@ namespace cweather
             _opApi = new OpenWeatherApiClient();
         }
 
+        // get the location 
         private async Task GetLocationAsync()
         {
             var res = await _mpApi.GetLatLongAsync(_queryLoc);
             _location = new Location(res);
         }
 
+        // get the weather 
         private async Task GetWeatherJsonAsync()
         {
             _weatherJsonObject = await _opApi.GetWeatherAsync(_location);
 
         }
 
+        // preocess the weather data
         public  async Task ProcessWeatherData()
         {
+            // show a fancy spinner while the data is fetched from the API
             await AnsiConsole.Status()
                              .StartAsync("Fetching Data... ", async ctx => 
                              {
@@ -49,18 +53,22 @@ namespace cweather
                              });
             
 
+            // Parsing the current weather data
             var currentWeather = new CurrentWeather(_weatherJsonObject.SelectToken("current"));
 
+            // Parsing the hourly weather data
             var hourlyWeathers = ProcessData(
                 _weatherJsonObject.SelectToken("hourly"), 
                 (tempTok) => new HourlyWeather(tempTok)
             );
 
+            // parsing the daily weather
             var dailyWeathers = ProcessData(
                 _weatherJsonObject.SelectToken("daily"), 
                 (tempTok) => new DailyWeather(tempTok)
             );
 
+            // Combining all the data in a single object that (nearly) represents JSON object
             _weather = new Weather(
                 _weatherJsonObject.SelectToken("timezone").ToString(), 
                 currentWeather, 
@@ -69,6 +77,7 @@ namespace cweather
             );
         }
 
+        // A generic method to parse various forms of data from the JToken
         private static List<T> ProcessData<T>(JToken hourlyTok, Func<JToken, T> consFunc)
         {
             var dataList = new List<T>();

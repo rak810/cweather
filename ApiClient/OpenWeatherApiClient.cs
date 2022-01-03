@@ -21,9 +21,11 @@ namespace cweather.ApiClient
        public OpenWeatherApiClient()
        {
            _httpClient = new HttpClient();
-           _owmApiToken = Env.GetString("OWMapiToken");     
+           // getting the api token from the .env file
+           _owmApiToken = Env.GetString("OWMapiToken");      
        }
 
+        // generate request url
         private Uri GenerateReqUrl(float Lat, float Long) => new($"https://api.openweathermap.org/data/2.5/onecall?lat={Lat}&lon={Long}&units=metric&exclude=minutely&appid={_owmApiToken}");
 
         public async Task<JObject> GetWeatherAsync(Location loc)
@@ -34,13 +36,12 @@ namespace cweather.ApiClient
             try
             {
                  var response = await _httpClient.GetAsync(reqUri);
-
+                 // if we get the response successfully parse the json as a JObject
                  if(response.IsSuccessStatusCode)
                  {
                      var jsonStr = await response.Content.ReadAsStringAsync();
                      var jsonDict = JObject.Parse(jsonStr);
                      weatherObj = jsonDict;
-                    //  var res = jsonDict.SelectToken("features");
                  }
                  else 
                  {

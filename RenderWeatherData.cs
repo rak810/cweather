@@ -11,21 +11,28 @@ namespace cweather
     {
         private readonly Weather _weather;
         private readonly Location _location;
-        // TODO: Location location, CurrentWeather currentWeather
+
 
         public RenderWeatherData(Weather weather, Location location)
         {
             _location = location;
             _weather = weather;
         }
+
+        // get summary of the current weather
+        // Only location, date. timezone, temperature and wind are shown
+        // If rain of snow detail is available that is also shown
         public void CurrentWeatherSummary()
         {
             string locationDetail = $"[bold blue] Location:[/] {_location.PlaceName} [[{_location.Coord.Lat}, {_location.Coord.Long}]]";
             AnsiConsole.MarkupLine(locationDetail);
+
             string timeDetail = $"[bold blue] Date:[/]{_weather.Current.Date} [bold blue] Timezone:[/] {_weather.TimeZone}";
             AnsiConsole.MarkupLine(timeDetail);
+
             string wDetail = $"[bold blue] Weather:[/] {_weather.Current.WDesc[0].Main} / {_weather.Current.WDesc[0].Description}";
             AnsiConsole.MarkupLine(wDetail);
+
             AnsiConsole.MarkupLine($"[bold blue] Temperature:[/] {_weather.Current.Temp}ºC");
             AnsiConsole.MarkupLine($"[bold blue] Feels Like:[/] {_weather.Current.FeelsLike}ºC");
             string windDetail = $"[bold blue] Wind:[/] {_weather.Current.WFactors.Wind.WindSpeed} m/s, {_weather.Current.WFactors.Wind.WindDeg}º";
@@ -44,9 +51,13 @@ namespace cweather
             }
         }
 
+        // details like humidity pressure cloud visibility
+        // that were missing in the CurrentWeatherSummary() is shown here in a table
         public void CurrentWeatherDetail()
         {
+            // Important details from summary shown calling CurrentWeatherSummary()
             CurrentWeatherSummary();
+            // Other details are shown using a table rendered using Spectre.Console Table class
             var table = new Table();
             table.AddColumn(new TableColumn("Pressure").Centered());
             table.AddColumn(new TableColumn("Humidity").Centered());
@@ -66,6 +77,8 @@ namespace cweather
             AnsiConsole.Write(table);
         }
 
+        // Forecast weather for next n hours in a table
+        // A limit is set to next 10 hours only
         public void ForecastHourlyWeather(int count)
         {
             var table = new Table();
@@ -75,7 +88,6 @@ namespace cweather
             table.AddColumn(new TableColumn("Humidity").Centered());
             table.AddColumn(new TableColumn("Wind").Centered());
             table.AddColumn(new TableColumn("Description").Centered());
-
             for(int i = 1; i <= count; i++)
             {
                 var row = RenderHourlyWeather(_weather.Hourly[i]);
@@ -85,6 +97,8 @@ namespace cweather
             AnsiConsole.Write(table);
         }
 
+        // Data of each hour is shown using a row in a table
+        // This method returns a TableRow row
         private static TableRow RenderHourlyWeather(HourlyWeather hourlyWeather)
         {
             
@@ -99,6 +113,11 @@ namespace cweather
             return new TableRow(wList);
         }
 
+        // Daily forecast forecast for a day in the future
+        // For example if the date today is 1/1/2022 
+        // and we want to forecast the weather of 3/1/2022
+        // then the input would be (3-1) or 2
+        // 6 days are available after the current day 
         public void ForecastDailyWeather(int i)
         {
             if(i > 6) {

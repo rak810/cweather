@@ -20,8 +20,8 @@ namespace cweather.ApiClient
        }
         public SimpleMapBoxApiClient()
         {
-            _httpClient = new HttpClient();
-           _mbApiToken = Env.GetString("MBapiToken");  
+           _httpClient = new HttpClient();
+           _mbApiToken = Env.GetString("MBapiToken"); 
         }
 
         private Uri GenerateReqUrl(string loc) => new($"https://api.mapbox.com/geocoding/v5/mapbox.places/{WebUtility.UrlEncode(loc)}.json?access_token={_mbApiToken}");
@@ -34,13 +34,12 @@ namespace cweather.ApiClient
             try
             {
                  var response = await _httpClient.GetAsync(reqUri);
-
+                 // if we get the response successfully parse the json string as JObject
                  if(response.IsSuccessStatusCode)
                  {
                      var jsonStr = await response.Content.ReadAsStringAsync();
                      var jsonDict = JObject.Parse(jsonStr);
                      locationObj = jsonDict.SelectToken("features").First;
-                    //  var res = jsonDict.SelectToken("features");
                  }
             }
             catch (Exception e)
